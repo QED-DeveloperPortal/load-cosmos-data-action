@@ -54,7 +54,7 @@ class Program
         Console.WriteLine($"PWD: {Directory.GetCurrentDirectory()}");
         var files = Directory.GetFiles(Directory.GetCurrentDirectory());
         foreach (var file in files)
-            Console.WriteLine();
+            Console.WriteLine(file);
     }
 }
 
