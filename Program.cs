@@ -18,7 +18,7 @@ class Program
         Console.WriteLine("Time to load our jekyll site with some Cosmos data!");
         cosmosClient = new CosmosClient(endpointUri, primaryKey);
         database = await cosmosClient.CreateDatabaseIfNotExistsAsync("DevPortal");
-        container = await database.CreateContainerIfNotExistsAsync("Author", "/partitionKey");
+        container = await database.CreateContainerIfNotExistsAsync("Author", "/partitionkey");
 
         await QueryItemsAsync();
     }
