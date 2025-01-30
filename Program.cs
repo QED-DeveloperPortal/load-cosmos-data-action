@@ -5,7 +5,7 @@
    using  Microsoft.Azure.Cosmos;
    using Newtonsoft.Json;
 
-class Program 
+class Program2 
 {
     private static readonly string endpointUri = Environment.GetEnvironmentVariable("COSMOS_ENDPOINT");
     private static readonly string primaryKey = Environment.GetEnvironmentVariable("COSMOS_KEY");
