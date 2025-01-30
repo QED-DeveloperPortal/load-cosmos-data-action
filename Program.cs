@@ -154,7 +154,7 @@ matt:
                     }
                     else
                     {
-                        result += $"   {subTitles[index]}: {item}\n";
+                        result += $"    {subTitles[index]}: {item}\n";
                     }
 
                     index++;
