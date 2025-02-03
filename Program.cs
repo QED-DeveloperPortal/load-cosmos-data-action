@@ -39,7 +39,7 @@ namespace Cosmoser {
                 foreach (Item item in currentResultSet)
                 {
                     Console.WriteLine($"\tRead {item}");
-                    authorsText += item.Id + "\n";
+                    //authorsText += item.Id + "\n";
                     authorsText += $"{item.Id}:\n";
                     authorsText += string.IsNullOrEmpty(item.UserId) ? string.Empty : $"  user-id: {item.UserId}\n";
                     authorsText += string.IsNullOrEmpty(item.GhUser) ? string.Empty : $"  gh-user: {item.GhUser}\n";
