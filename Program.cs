@@ -54,7 +54,6 @@ namespace Cosmoser {
                     authorsText += AppendList("badges-role", item.BadgesRole);
                     authorsText += AppendListOfLists("links", new List<string> {"title", "url", "icon"}, item.Links);
                     authorsText += AppendList("subscribed-tags", item.SubscribedTags);
-                    
                     /*
     matt:
     user-id: cac6b64f-7fa0-48fa-bbd2-81b058115150
@@ -99,10 +98,17 @@ namespace Cosmoser {
             }
             Console.WriteLine("AUTHORS GENERATED");
             Console.WriteLine(authorsText);
-            Console.WriteLine($"PWD: {Directory.GetCurrentDirectory()}");
-            var files = Directory.GetFiles(Directory.GetCurrentDirectory());
-            foreach (var file in files)
-                Console.WriteLine(file);
+            var authorsPath = "/home/runner/work/qed-developer-portal/qed-developer-portal/_data/authors.yml";
+            File.Delete(authorsPath);
+            using (var sw = new StreamWriter(authorsPath))
+            {
+                sw.Write(authorsText);
+            }
+
+            //Console.WriteLine($"PWD: {Directory.GetCurrentDirectory()}");
+            //var files = Directory.GetFiles(Directory.GetCurrentDirectory());
+            //foreach (var file in files)
+            //    Console.WriteLine(file);
         }
 
         public static string AppendList(string title, string input)
