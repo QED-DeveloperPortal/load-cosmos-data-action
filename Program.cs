@@ -1,22 +1,23 @@
-﻿   using System;
-   using System.Collections.Generic;
-   using System.Text;
-   using System.Threading.Tasks;
-   using  Microsoft.Azure.Cosmos;
-   using Newtonsoft.Json;
+﻿    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading.Tasks;
+    using  Microsoft.Azure.Cosmos;
+    using Newtonsoft.Json;
 
-namespace Cosmoser {
-    class Program2 
+    class Program 
     {
         private static readonly string? endpointUri = Environment.GetEnvironmentVariable("COSMOS_ENDPOINT");
         private static readonly string? primaryKey = Environment.GetEnvironmentVariable("COSMOS_KEY");
+     
+        private const string authorsPath = "/home/runner/work/qed-developer-portal/qed-developer-portal/_data/authors.yml";
+            
         private static CosmosClient? cosmosClient;
         private static Database? database;
         private static Container? container;
 
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
             Console.WriteLine("Time to load our jekyll site with some Cosmos data!");
             cosmosClient = new CosmosClient(endpointUri, primaryKey);
             database = await cosmosClient.CreateDatabaseIfNotExistsAsync("DevPortal");
@@ -27,7 +28,7 @@ namespace Cosmoser {
 
         static async Task QueryItemsAsync()
         {
-            var sqlQueryText = "SELECT * FROM c"; // WHERE c.id = 'your-item-id'";
+            var sqlQueryText = "SELECT * FROM c";
             QueryDefinition queryDefinition = new QueryDefinition(sqlQueryText);
             FeedIterator<Item> queryResultSetIterator = container.GetItemQueryIterator<Item>(queryDefinition);
         
@@ -38,8 +39,6 @@ namespace Cosmoser {
                 FeedResponse<Item> currentResultSet = await queryResultSetIterator.ReadNextAsync();
                 foreach (Item item in currentResultSet)
                 {
-                    Console.WriteLine($"\tRead {item}");
-                    //authorsText += item.Id + "\n";
                     authorsText += $"{item.Id}:\n";
                     authorsText += string.IsNullOrEmpty(item.UserId) ? string.Empty : $"  user-id: {item.UserId}\n";
                     authorsText += string.IsNullOrEmpty(item.GhUser) ? string.Empty : $"  gh-user: {item.GhUser}\n";
@@ -57,8 +56,7 @@ namespace Cosmoser {
                 }
             }
             Console.WriteLine("AUTHORS GENERATED");
-            Console.WriteLine(authorsText);
-            var authorsPath = "/home/runner/work/qed-developer-portal/qed-developer-portal/_data/authors.yml";
+            //Console.WriteLine(authorsText);
             File.Delete(authorsPath);
             using (var sw = new StreamWriter(authorsPath))
             {
@@ -202,4 +200,3 @@ namespace Cosmoser {
         [JsonProperty("achievements")]
         public string? Achievements { get; set; }
     }
-}
