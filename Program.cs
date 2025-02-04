@@ -8,11 +8,11 @@
 namespace Cosmoser {
     class Program2 
     {
-        private static readonly string endpointUri = Environment.GetEnvironmentVariable("COSMOS_ENDPOINT");
-        private static readonly string primaryKey = Environment.GetEnvironmentVariable("COSMOS_KEY");
-        private static CosmosClient cosmosClient;
-        private static Database database;
-        private static Container container;
+        private static readonly string? endpointUri = Environment.GetEnvironmentVariable("COSMOS_ENDPOINT");
+        private static readonly string? primaryKey = Environment.GetEnvironmentVariable("COSMOS_KEY");
+        private static CosmosClient? cosmosClient;
+        private static Database? database;
+        private static Container? container;
 
         static async Task Main(string[] args)
         {
@@ -54,46 +54,6 @@ namespace Cosmoser {
                     authorsText += AppendList("badges-role", item.BadgesRole);
                     authorsText += AppendListOfLists("links", new List<string> {"title", "url", "icon"}, item.Links);
                     authorsText += AppendList("subscribed-tags", item.SubscribedTags);
-                    /*
-    matt:
-    user-id: cac6b64f-7fa0-48fa-bbd2-81b058115150
-    gh-user: mattyboisterous
-    name: Matt Warwick
-    abbrev: MW
-    picture: /images/authors/matt100x100.png
-    bio: Matt is a full stack developer with a love for Angular websites and Microsoft Azure
-    joined: Friday 13 January 2023
-    twitter: '@mattyboisterous'
-    badges-permission:
-    - badge-government
-    badges-award:
-    - badge-popular
-    badges-role:
-    - badge-admin
-    links:
-    - title: Github
-        url: https://github.com/mattyboisterous
-        icon: fab fa-github-square
-    subscribed-tags:
-    - agile
-
-    {
-        "id": "matt",
-        "partitionkey": "55ebb25e-87c8-40c5-bd15-8eb25d683dda",
-        "user-id": "cac6b64f-7fa0-48fa-bbd2-81b058115150",
-        "gh-user": "mattyboisterous",
-        "name": "Matt Warwick",
-        "abbrev": "MW",
-        "picture": "/images/authors/matt100x100.png",
-        "bio": "Matt is a full stack developer with a love for Angular websites and Microsoft Azure",
-        "joined": "Friday 13 January 2023",
-        "twitter": "@mattyboisterous",
-        "badges-permission": "badge-government",
-        "badges-award": "badge-popular",
-        "badges-role": "badge-admin",
-        "links": "{title: Github, url: https://github.com/mattyboisterous, icon: fab fa-github-square}",
-        "subscribed-tags": "{agile}",
-                    */
                 }
             }
             Console.WriteLine("AUTHORS GENERATED");
@@ -104,11 +64,6 @@ namespace Cosmoser {
             {
                 sw.Write(authorsText);
             }
-
-            //Console.WriteLine($"PWD: {Directory.GetCurrentDirectory()}");
-            //var files = Directory.GetFiles(Directory.GetCurrentDirectory());
-            //foreach (var file in files)
-            //    Console.WriteLine(file);
         }
 
         public static string AppendList(string title, string input)
@@ -200,51 +155,51 @@ namespace Cosmoser {
     public class Item
     {
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public required string Id { get; set; }
         
         [JsonProperty("partitionkey")]
-        public string PartitionKey { get; set; }
+        public string? PartitionKey { get; set; }
         
         [JsonProperty("user-id")]
-        public string UserId { get; set; }
+        public required string UserId { get; set; }
 
         [JsonProperty("gh-user")]
-        public string GhUser { get; set; }
+        public string? GhUser { get; set; }
 
         [JsonProperty("badges-permission")]
-        public string BadgesPermission { get; set; }
+        public string? BadgesPermission { get; set; }
 
         [JsonProperty("badges-award")]
-        public string BadgesAward { get; set; }
+        public string? BadgesAward { get; set; }
 
         [JsonProperty("badges-role")]
-        public string BadgesRole { get; set; }
+        public string? BadgesRole { get; set; }
 
         [JsonProperty("bio")]
-        public string Bio { get; set; }
+        public string? Bio { get; set; }
 
         [JsonProperty("joined")]
-        public string Joined { get; set; }
+        public string? Joined { get; set; }
 
         [JsonProperty("twitter")]
-        public string Twitter { get; set; }
+        public string? Twitter { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonProperty("abbrev")]
-        public string Abbrev { get; set; }
+        public string? Abbrev { get; set; }
 
         [JsonProperty("picture")]
-        public string Picture { get; set; }
+        public string? Picture { get; set; }
 
         [JsonProperty("links")]
-        public string Links { get; set; }
+        public string? Links { get; set; }
 
         [JsonProperty("subscribed-tags")]
-        public string SubscribedTags { get; set; }
+        public string? SubscribedTags { get; set; }
 
         [JsonProperty("achievements")]
-        public string Achievements { get; set; }
+        public string? Achievements { get; set; }
     }
 }
